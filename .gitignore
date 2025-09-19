@@ -1,0 +1,24 @@
+# Node modules
+node_modules/
+build/
+dist/
+
+# Logs
+*.log
+
+# .NET
+bin/
+obj/
+*.dll
+*.exe
+
+# IDEs
+.vscode/
+.idea/
+*.user
+*.suo
+*.db
+
+# Ignore environment files
+.env
+*.env
