@@ -33,4 +33,9 @@ jobs:
           #### Locations
           app_location: "client"          # React app folder
           api_location: "server"          # .NET backend
-          output_location: "build"        # React build folder inside /client
+          output_location: "build"    
+          name: List build folder
+          run: |
+           ls -R client/build
+# React build folder inside /client
+
