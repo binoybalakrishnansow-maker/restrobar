@@ -49,3 +49,4 @@ jobs:
           app_location: "client"          # React app (where package.json lives)
           api_location: "server"          # .NET backend
           output_location: "build"        # React build folder inside client/
+          skip_deploy_on_missing_secrets: true
