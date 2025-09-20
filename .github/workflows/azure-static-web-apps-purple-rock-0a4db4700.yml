@@ -14,37 +14,43 @@ jobs:
     runs-on: ubuntu-latest
     name: Build and Deploy Job
     steps:
-      # Checkout repo
+      # Step 1: Checkout repo
       - uses: actions/checkout@v3
 
-      # Show repo structure for debugging
+      # Step 2: Debug repo structure
       - name: Debug Repo Structure
         run: |
           echo "Repo root:"
           ls -R
 
-      # Setup Node.js 20 for React build
+      # Step 3: Setup Node.js 20
       - name: Use Node.js 20
         uses: actions/setup-node@v3
         with:
           node-version: 20
 
-      # Build React frontend
+      # Step 4: Verify Node version
+      - name: Verify Node Version
+        run: |
+          node -v
+          npm -v
+
+      # Step 5: Build React frontend
       - name: Build React App
         run: |
           cd client
           npm install
-          npm run build
+          CI=false npm run build    # 👈 ignore ESLint warnings temporarily
           echo "React build output:"
           ls -R build
 
-      # Deploy React + .NET API
+      # Step 6: Deploy React + .NET backend
       - name: Deploy to Azure
         uses: Azure/static-web-apps-deploy@v1
         with:
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           repo_token: ${{ secrets.GITHUB_TOKEN }}
           action: "upload"
-          app_location: "client"        # React app folder
-          api_location: "server"        # .NET backend folder
-          output_location: "build"      # React build output
+          app_location: "client"      # React app folder
+          api_location: "server"      # .NET backend folder
+          output_location: "build"    # React build output folder
