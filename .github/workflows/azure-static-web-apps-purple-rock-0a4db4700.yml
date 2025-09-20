@@ -19,9 +19,12 @@ jobs:
       # Build React frontend (disable CI=true so warnings won't fail build)
       - name: Build React App
         run: |
-          cd client
-          npm install
-          CI=false npm run build   # 👈 important fix
+         cd client
+         npm install
+         CI=false npm run build || true   # 👈 force continue for debugging
+         echo "Client build output:"
+         ls -R build || echo "⚠️ Build folder not found"
+
 
       # Deploy React + .NET API
       - name: Build And Deploy
@@ -38,5 +41,6 @@ jobs:
           run: |
            ls -R client/build
 # React build folder inside /client
+
 
 
